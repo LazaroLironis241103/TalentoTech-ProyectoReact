@@ -55,3 +55,7 @@
   -webkit-box-orient: vertical;
   overflow: hidden;
 }
+
+.image-wrapped {
+    position: relative;
+}

@@ -6,7 +6,10 @@ export const Nav = () => {
     <nav>
       <ul className="nav-list">
         <li>
-          <Link to={"/"}>Home</Link>
+          <Link to={"/"}>Inicio</Link>
+        </li>
+        <li>
+          <Link to={"/"}>Categorías</Link>
         </li>
         <li>
           <Link to={"/cart"}>Carrito</Link>
