@@ -36,6 +36,9 @@ export const Nav = () => {
           )}
         </li>
         <li>
+            <Link to={"/category/ofertas"}>Ofertas</Link>
+        </li>
+        <li>
           <Link to={"/cart"}>Carrito</Link>
         </li>
       </ul>

@@ -4,63 +4,79 @@
     "name": "Logitech G Pro X TKL",
     "description": "Teclado mecánico inalámbrico tamaño TKL con switches GX intercambiables en caliente y perfil bajo. Pensado para esports y setups minimalistas.",
     "price": 219900,
-    "image": "/img/footware/teclado-logitech.jpg",
-    "category": "teclados"
+    "precioAnterior": 274875,
+    "image": "/img/gaming/teclado-logitech.jpg",
+    "category": "teclados",
+    "badge": "20% OFF"
   },
   {
     "id": 2,
     "name": "Razer Huntsman V3 Pro",
     "description": "Teclado mecánico con switches ópticos analógicos de actuación ajustable, retroiluminación Razer Chroma RGB y reposamuñecas magnético incluido.",
     "price": 249900,
-    "image": "/img/footware/teclado-razer.jpg",
-    "category": "teclados"
+    "precioAnterior": null,
+    "image": "/img/gaming/teclado-razer.jpg",
+    "category": "teclados",
+    "badge": "Más vendido"
   },
   {
     "id": 3,
     "name": "Logitech G502 X Lightspeed",
     "description": "Mouse inalámbrico con sensor HERO 25K, switches híbridos ópticos-mecánicos y 13 botones programables. Peso reducido sin sacrificar durabilidad.",
     "price": 129900,
-    "image": "/img/footware/mouse-logitech.jpg",
-    "category": "mouses"
+    "precioAnterior": null,
+    "image": "/img/gaming/mouse-logitech.jpg",
+    "category": "mouses",
+    "badge": null
   },
   {
     "id": 4,
     "name": "Razer Viper V3 Pro",
     "description": "Mouse ultraliviano de 54 gramos con sensor Focus Pro 35K, conexión HyperSpeed y hasta 95 horas de batería en uso continuo.",
     "price": 159900,
-    "image": "/img/footware/mouse-razer.jpg",
-    "category": "mouses"
+    "precioAnterior": null,
+    "image": "/img/gaming/mouse-razer.jpg",
+    "category": "mouses",
+    "badge": "Envío gratis"
   },
   {
     "id": 5,
     "name": "HyperX Cloud II Wireless",
     "description": "Auriculares inalámbricos con sonido envolvente 7.1 virtual, memory foam en las almohadillas y hasta 30 horas de batería.",
     "price": 139900,
-    "image": "/img/footware/auriculares-hyperx.jpg",
-    "category": "auriculares"
+    "precioAnterior": null,
+    "image": "/img/gaming/auriculares-hyperx.jpg",
+    "category": "auriculares",
+    "badge": "Sonido espacial"
   },
   {
     "id": 6,
     "name": "SteelSeries Arctis Nova Pro Wireless",
     "description": "Cancelación activa de ruido, transductores de alta fidelidad y sistema de doble batería intercambiable para no quedarte nunca sin carga.",
     "price": 279900,
-    "image": "/img/footware/auriculares-steelseries.jpg",
-    "category": "auriculares"
+    "precioAnterior": null,
+    "image": "/img/gaming/auriculares-steelseries.jpg",
+    "category": "auriculares",
+    "badge": null
   },
   {
     "id": 7,
     "name": "Secretlab Titan Evo",
     "description": "Silla ergonómica premium en cuero NEO Hybrid, soporte lumbar integrado ajustable en 4 direcciones y reclinación de hasta 165°.",
     "price": 549900,
-    "image": "/img/footware/silla-secretlab.jpg",
-    "category": "sillas"
+    "precioAnterior": null,
+    "image": "/img/gaming/silla-secretlab.jpg",
+    "category": "sillas",
+    "badge": "Nuevo"
   },
   {
     "id": 8,
     "name": "Razer Iskur V2",
     "description": "Silla gamer con soporte lumbar dinámico que se adapta a tus movimientos, espuma de alta densidad y apoyabrazos 4D.",
     "price": 489900,
-    "image": "/img/footware/silla-razer.jpg",
-    "category": "sillas"
+    "precioAnterior": 597439,
+    "image": "/img/gaming/silla-razer.jpg",
+    "category": "sillas",
+    "badge": "18% OFF"
   }
 ]

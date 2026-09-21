@@ -1,4 +1,7 @@
 import "./Footer.css";
+import whatsappIcon from "../../assets/whatsapp.svg"
+import githubIcon from "../../assets/github.svg"
+import instragramIcon from "../../assets/instagram.svg"
 
 export const Footer = () => {
   return (
@@ -51,10 +54,17 @@ export const Footer = () => {
       <div className="footer-bottom">
         <p>© 2026 Nexus Gear. Todos los derechos reservados.</p>
         <nav>
-          <ul className="nav-list">
-            <li>Whatsapp</li>
-            <li>Instagram</li>
-          </ul>
+          <a href="https://wa.me/5492215959818" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+            <img src={whatsappIcon} alt="WhatsApp" />
+          </a>
+
+          <a href="https://github.com/LazaroLironis241103" target="_blank"  rel="noopener noreferrer" aria-label="GitHub">
+            <img src={githubIcon} alt="GitHub" />
+          </a>
+
+          <a href="https://instagram.com/lalo_lironis" target="_blank"  rel="noopener noreferrer" aria-label="Instagram">
+            <img src={instragramIcon} alt="Instagram" />
+          </a>
         </nav>
       </div>
     </footer>
