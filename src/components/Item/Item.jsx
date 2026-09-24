@@ -1,5 +1,6 @@
 import "./Item.css";
 
+
 export const Item = ({ name, price, description, image, children, badge, precioAnterior }) => {
   return (
     <article className="card">

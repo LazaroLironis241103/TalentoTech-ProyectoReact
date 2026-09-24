@@ -1,5 +1,5 @@
-import { Item } from "../Item/Item";
 import { Link } from "react-router-dom";
+import { Item } from "../Item/Item";
 import "./ItemList.css";
 
 export const ItemList = ({ products, vista }) => {
@@ -12,7 +12,7 @@ export const ItemList = ({ products, vista }) => {
       {products.map((product) => (
         <Link to={`/product/${product.id}`} key={product.id}>
           <Item {...product}>
-             <span className="category-badge">{product.category}</span>
+            <span className="category-badge">{product.category}</span>
           </Item>
         </Link>
       ))}
