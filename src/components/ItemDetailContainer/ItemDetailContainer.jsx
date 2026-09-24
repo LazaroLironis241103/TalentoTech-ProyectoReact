@@ -1,21 +1,21 @@
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ItemDetail } from "../ItemDetail/ItemDetail";
+import { ItemList } from "../ItemList/ItemList";
 
 export const ItemDetailContainer = () => {
   const { id } = useParams();
   const [itemDetail, setItemDetail] = useState(null);
   const [error, setError] = useState(null);
   const [loading, setLoading] = useState(true);
+  const [productosRelacionados, setProductosRelacionados] = useState([]);
 
   useEffect(() => {
-    //Si volvieramos a renderizar el componente porque usamos "productos relacionados"
-    //Se tendria que volver a renderizar ItemDetailContainer con el nuevo detalle.
-    //Entonces: el array de dependencias del useEffect debe llevar el "id" y deberiamos
-    //Resetear los estados de loading y error
+    // eslint-disable-next-line react-hooks/set-state-in-effect
     setItemDetail(null);
     setLoading(true);
     setError(null);
+    setProductosRelacionados([]);
 
     fetch("/data/products.json")
       .then((res) => res.json())
@@ -23,6 +23,10 @@ export const ItemDetailContainer = () => {
         const item = data.find((product) => String(product.id) === id);
         if (item) {
           setItemDetail(item);
+          const relacionados = data.filter(
+            (r) => r.category === item.category && r.id !== item.id,
+          );
+          setProductosRelacionados(relacionados);
           return;
         }
         throw new Error("Elemento no encontrado");
@@ -31,16 +35,22 @@ export const ItemDetailContainer = () => {
       .finally(() => setLoading(false));
   }, [id]);
 
-  if (loading) return <p>Cargando...</p>;
-  if (error) return <p>{error}</p>;
-  if (!itemDetail) return <p>Producto no encontrado</p>;
+  if (loading) return <p className="detail-status">Cargando...</p>;
+  if (error) return <p className="detail-status detail-error">{error}</p>;
+  if (!itemDetail) return <p className="detail-status">Producto no encontrado</p>;
 
   return (
-    <section>
-      <h1>Detalles del producto</h1>
+    <section className="detail-content">
+      <h1 className="detail-title">Detalles del producto</h1>
       <div className="products-container">
         <ItemDetail item={itemDetail} />
       </div>
+      <div className="related-products">
+          <h2>Productos relacionados</h2>
+          <div>
+            <ItemList products={productosRelacionados}/>
+          </div>
+        </div>
     </section>
   );
 };

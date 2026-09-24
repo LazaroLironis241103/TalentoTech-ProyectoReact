@@ -7,7 +7,7 @@ export const ItemDetail = ({ item }) => {
   return (
     <div className="detail-wrapper">
       <Item {...item}>
-        <Link to={"/cart"}>
+        <Link className="detail-add-link" to={"/cart"}>
             <img src={carritoIcon} alt="" className="cart-icon" /> Agregar
         </Link>
       </Item>

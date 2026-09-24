@@ -53,17 +53,17 @@ export const Footer = () => {
 
       <div className="footer-bottom">
         <p>© 2026 Nexus Gear. Todos los derechos reservados.</p>
-        <nav>
+        <nav className="social-links">
           <a href="https://wa.me/5492215959818" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
-            <img src={whatsappIcon} alt="WhatsApp" />
+            <img className="social-icon" src={whatsappIcon} alt="WhatsApp" />
           </a>
 
           <a href="https://github.com/LazaroLironis241103" target="_blank"  rel="noopener noreferrer" aria-label="GitHub">
-            <img src={githubIcon} alt="GitHub" />
+            <img className="social-icon" src={githubIcon} alt="GitHub" />
           </a>
 
           <a href="https://instagram.com/lalo_lironis" target="_blank"  rel="noopener noreferrer" aria-label="Instagram">
-            <img src={instragramIcon} alt="Instagram" />
+            <img className="social-icon" src={instragramIcon} alt="Instagram" />
           </a>
         </nav>
       </div>

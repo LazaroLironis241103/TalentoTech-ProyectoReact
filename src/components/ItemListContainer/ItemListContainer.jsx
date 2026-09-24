@@ -5,6 +5,7 @@ import camionIcon from "../../assets/truck-svgrepo-com.svg";
 import garantiaIcon from "../../assets/shield-check-svgrepo-com.svg";
 import devolucionIcon from "../../assets/refresh-square-svgrepo-com.svg";
 import soporteIcon from "../../assets/shopping-support-svgrepo-com.svg";
+import "./ItemListContainer.css";
 
 export const ItemListContainer = () => {
   const [products, setProducts] = useState([]);
@@ -38,7 +39,7 @@ export const ItemListContainer = () => {
   if (errors) return <p>{errors}</p>;
 
   return (
-    <section>
+    <section className="home-content">
       <p className="hero-tag">
         <span className="dot"></span> Nueva Generación 2026 // RGB Sync
       </p>
@@ -47,7 +48,7 @@ export const ItemListContainer = () => {
         Periféricos profesionales con telemetría de ultra baja latencia,
         calibrados para esports competitivos y creadores de contenido de élite.
       </p>
-      <nav>
+      <nav className="category-nav">
         <Link to="/" className={!category ? "pill-activo" : "pill"}>
           Ver todos
         </Link>
@@ -76,7 +77,7 @@ export const ItemListContainer = () => {
           Sillas Ergonómicas
         </Link>
       </nav>
-      <div>
+      <div className="view-controls">
         <button
           type="button"
           onClick={() => setTipoDeVista(true)}
@@ -92,7 +93,7 @@ export const ItemListContainer = () => {
           ☰
         </button>
       </div>
-      <p>
+      <p className="product-count">
         Mostrando {productosFiltrados.length} de {products.length} productos
       </p>
       <ItemList products={productosFiltrados} vista={tipoDeVista} />
@@ -108,12 +109,12 @@ export const ItemListContainer = () => {
       </div>
 
       <div className="trust-features">
-        <div>
+        <div className="feature-card">
           <img src={camionIcon} alt="Envío Express" className="feature-icon" />
           <h3>Envío Express</h3>
           <p>Entrega pro-tier en 24/48hs a todo el país.</p>
         </div>
-        <div>
+        <div className="feature-card">
           <img
             src={garantiaIcon}
             alt="2 Años de Garantía"
@@ -122,7 +123,7 @@ export const ItemListContainer = () => {
           <h3>2 Años de Garantía</h3>
           <p>Reemplazo directo sin demoras burocráticas.</p>
         </div>
-        <div>
+        <div className="feature-card">
           <img
             src={devolucionIcon}
             alt="Devolución 30 Días"
@@ -131,7 +132,7 @@ export const ItemListContainer = () => {
           <h3>Devolución 30 Días</h3>
           <p>Prueba tu gear sin costo y sin riesgos.</p>
         </div>
-        <div>
+        <div className="feature-card">
           <img
             src={soporteIcon}
             alt="Soporte Pro 24/7"

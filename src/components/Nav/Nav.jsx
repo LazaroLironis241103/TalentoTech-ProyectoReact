@@ -6,40 +6,41 @@ export const Nav = () => {
   const [mostrarCategorias, setMostrarCategorias] = useState(false);
 
   return (
-    <nav>
+    <nav className="site-nav">
       <ul className="nav-list">
         <li>
-          <Link to={"/"}>Inicio</Link>
+          <Link className="nav-link" to={"/"}>Inicio</Link>
         </li>
         <li>
           <button
             type="button"
+            className="category-toggle"
             onClick={() => setMostrarCategorias(!mostrarCategorias)}
           >
             Categorías
           </button>
           {mostrarCategorias && (
-            <ul>
+            <ul className="category-menu">
               <li>
-                <Link to={"/category/teclados"}>Teclados</Link>
+                <Link className="nav-link" to={"/category/teclados"}>Teclados</Link>
               </li>
               <li>
-                <Link to={"/category/mouses"}>Mouses</Link>
+                <Link className="nav-link" to={"/category/mouses"}>Mouses</Link>
               </li>
               <li>
-                <Link to={"/category/auriculares"}>Auriculares</Link>
+                <Link className="nav-link" to={"/category/auriculares"}>Auriculares</Link>
               </li>
               <li>
-                <Link to={"/category/sillas"}>Sillas</Link>
+                <Link className="nav-link" to={"/category/sillas"}>Sillas</Link>
               </li>
             </ul>
           )}
         </li>
         <li>
-            <Link to={"/category/ofertas"}>Ofertas</Link>
+            <Link className="nav-link" to={"/category/ofertas"}>Ofertas</Link>
         </li>
         <li>
-          <Link to={"/cart"}>Carrito</Link>
+          <Link className="nav-link" to={"/cart"}>Carrito</Link>
         </li>
       </ul>
     </nav>

@@ -12,10 +12,11 @@ function App() {
       <main>
         <Routes>
           <Route path="/" element={<ItemListContainer />} />
-          <Route path="/cart" element={<h1>El carrito de compras estará disponible próximamente.</h1>} />
+          <Route path="/cart" element={<h1 className="page-message">El carrito de compras estará disponible próximamente.</h1>} />
           <Route path="/product/:id" element={<ItemDetailContainer />} />
           {/* opcional: filtro por categorias */}
           <Route path="/category/:category" element={<ItemListContainer />} />
+          <Route path="*" element={<h1 className="page-message">Página no encontrada</h1>}/>
         </Routes>
       </main>
       <Footer />

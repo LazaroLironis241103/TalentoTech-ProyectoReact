@@ -11,11 +11,11 @@ export const Item = ({ name, price, description, image, children, badge, precioA
             <span className="product-badge">{badge}</span>
         )}
       </div>
-      <h3>{name}</h3>
-      <p>{description}</p>
-      <p>${price}</p>
+      <h3 className="item-card__name">{name}</h3>
+      <p className="item-card__description">{description}</p>
+      <p className="item-card__price">${price}</p>
       {precioAnterior && (
-            <p><s>${precioAnterior}</s></p>
+        <p className="item-card__previous-price"><s>${precioAnterior}</s></p>
         )}
     </article>
   );

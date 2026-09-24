@@ -1,26 +1,59 @@
+/* Barra principal */
 header {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: var(--space-md);
+  width: 100%;
+  padding: var(--space-md) var(--content-padding);
   background: var(--surface);
   border-bottom: 1px solid var(--border);
-
-  padding: 1rem 3rem;
-
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
 }
 
 .logo-container a {
   display: flex;
   align-items: center;
-  gap: 0.8rem;
+  gap: var(--space-sm);
 }
 
 .logo-container img {
-  width: 45px;
+  width: 40px;
+  height: 40px;
+  object-fit: contain;
 }
 
 .logo-container span {
-  font-size: 1.7rem;
-  font-weight: bold;
   color: var(--text);
+  font-size: 1.25rem;
+  font-weight: 800;
+  letter-spacing: 0.02em;
 }
+
+.logo-container a:focus-visible {
+  outline: 2px solid var(--secondary);
+  outline-offset: 5px;
+  border-radius: var(--radius-small);
+}
+
+@media (min-width: 768px) {
+  header {
+    padding-block: 1.25rem;
+  }
+
+  .logo-container img {
+    width: 44px;
+    height: 44px;
+  }
+
+  .logo-container span {
+    font-size: 1.5rem;
+  }
+}
+
+@media (max-width: 560px) {
+  header {
+    align-items: flex-start;
+    flex-direction: column;
+  }
