@@ -105,6 +105,8 @@
   grid-row: 1 / span 4;
   height: 100%;
   min-height: 180px;
+  min-width: 0;
+  aspect-ratio: unset;
 }
 
 .products-container.list .item-card__name {
