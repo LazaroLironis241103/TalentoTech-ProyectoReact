@@ -10,7 +10,11 @@ export const ItemList = ({ products, vista }) => {
   return (
     <div className={`products-container ${vista ? "grid" : "list"}`}>
       {products.map((product) => (
-        <Link className="product-link" to={`/product/${product.id}`} key={product.id}>
+        <Link
+          className="product-link"
+          to={`/product/${product.id}`}
+          key={product.id}
+        >
           <Item {...product}>
             <span className="category-badge">{product.category}</span>
           </Item>

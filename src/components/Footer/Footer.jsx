@@ -1,7 +1,7 @@
 import "./Footer.css";
-import whatsappIcon from "../../assets/whatsapp.svg"
-import githubIcon from "../../assets/github.svg"
-import instragramIcon from "../../assets/instagram.svg"
+import whatsappIcon from "../../assets/whatsapp.svg";
+import githubIcon from "../../assets/github.svg";
+import instragramIcon from "../../assets/instagram.svg";
 
 export const Footer = () => {
   return (
@@ -54,15 +54,30 @@ export const Footer = () => {
       <div className="footer-bottom">
         <p>© 2026 Nexus Gear. Todos los derechos reservados.</p>
         <nav className="social-links">
-          <a href="https://wa.me/5492215959818" target="_blank" rel="noopener noreferrer" aria-label="WhatsApp">
+          <a
+            href="https://wa.me/5492215959818"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="WhatsApp"
+          >
             <img className="social-icon" src={whatsappIcon} alt="WhatsApp" />
           </a>
 
-          <a href="https://github.com/LazaroLironis241103" target="_blank"  rel="noopener noreferrer" aria-label="GitHub">
+          <a
+            href="https://github.com/LazaroLironis241103"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="GitHub"
+          >
             <img className="social-icon" src={githubIcon} alt="GitHub" />
           </a>
 
-          <a href="https://instagram.com/lalo_lironis" target="_blank"  rel="noopener noreferrer" aria-label="Instagram">
+          <a
+            href="https://instagram.com/lalolironis_"
+            target="_blank"
+            rel="noopener noreferrer"
+            aria-label="Instagram"
+          >
             <img className="social-icon" src={instragramIcon} alt="Instagram" />
           </a>
         </nav>
