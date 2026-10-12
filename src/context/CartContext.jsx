@@ -22,18 +22,24 @@ export const CartProvider = ({ children }) => {
     return inCart;
   };
 
-  const addItem = (item) => {
+  const addItem = (item, quantity = 1) => {
     if (isInCart(item)) {
-      alert("El producto ya existe en el carrito");
-      return;
+      setCart((prevCart) =>
+        prevCart.map((element) => {
+          if (element.id === item.id) {
+            return { ...element, quantity: element.quantity + quantity };
+          }
+          return element;
+        }),
+      );
+    } else {
+      setCart((prevCart) => [...prevCart, { ...item, quantity }]);
     }
-    setCart([...cart, item]);
     alert("Producto agregado al carrito ✓");
   };
 
   const removeItem = (id) => {
-    const updatedCart = cart.filter((element) => element.id !== id);
-    setCart(updatedCart);
+    setCart((prevCart) => prevCart.filter((element) => element.id !== id));
     alert("Producto eliminado ✅");
   };
 
@@ -42,11 +48,36 @@ export const CartProvider = ({ children }) => {
   };
 
   const getTotalItems = () => {
-    return cart.length;
+    return cart.reduce((acc, element) => acc + element.quantity, 0);
   };
 
   const getCartTotal = () => {
-    return cart.reduce((acc, element) => acc + element.price, 0);
+    return cart.reduce(
+      (acc, element) => acc + element.price * element.quantity,
+      0,
+    );
+  };
+
+  const increaseQuantity = (id) => {
+    setCart((prevCart) =>
+      prevCart.map((element) => {
+        if (element.id === id) {
+          return { ...element, quantity: element.quantity + 1 };
+        }
+        return element;
+      }),
+    );
+  };
+
+  const decreaseQuantity = (id) => {
+    setCart((prevCart) =>
+      prevCart.map((element) => {
+        if (element.id === id && element.quantity > 1) {
+          return { ...element, quantity: element.quantity - 1 };
+        }
+        return element;
+      }),
+    );
   };
 
   const checkout = () => {
@@ -63,6 +94,8 @@ export const CartProvider = ({ children }) => {
     getCartTotal,
     getTotalItems,
     checkout,
+    increaseQuantity,
+    decreaseQuantity,
   };
 
   return <CartContext.Provider value={values}>{children}</CartContext.Provider>;
