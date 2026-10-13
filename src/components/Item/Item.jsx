@@ -1,4 +1,5 @@
 import "./Item.css";
+import { formatPrice } from "../../utils/formatPrice";
 
 export const Item = ({ name, price, description, image, children, badge, precioAnterior, }) => {
   return (
@@ -10,10 +11,10 @@ export const Item = ({ name, price, description, image, children, badge, precioA
       </div>
       <h3 className="item-card__name">{name}</h3>
       <p className="item-card__description">{description}</p>
-      <p className="item-card__price">${price}</p>
+      <p className="item-card__price">${formatPrice(price)}</p>
       {precioAnterior && (
         <p className="item-card__previous-price">
-          <s>${precioAnterior}</s>
+          <s>${formatPrice(precioAnterior)}</s>
         </p>
       )}
     </article>
