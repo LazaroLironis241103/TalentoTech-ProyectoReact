@@ -6,6 +6,7 @@ import garantiaIcon from "../../assets/shield-check-svgrepo-com.svg";
 import devolucionIcon from "../../assets/refresh-square-svgrepo-com.svg";
 import soporteIcon from "../../assets/shopping-support-svgrepo-com.svg";
 import "./ItemListContainer.css";
+import { getProducts } from "../../services/productsService";
 
 export const ItemListContainer = () => {
   const [products, setProducts] = useState([]);
@@ -15,19 +16,14 @@ export const ItemListContainer = () => {
   const productosFiltrados = products.filter((producto) => {
     return (
       producto.category === category ||
-      !category || (category === "ofertas" && producto.precioAnterior)
+      !category ||
+      (category === "ofertas" && producto.precioAnterior)
     );
   });
   const [tipoDeVista, setTipoDeVista] = useState(true);
 
   useEffect(() => {
-    fetch("/data/products.json")
-      .then((res) => {
-        if (!res.ok) {
-          throw new Error("Error al cargar los productos");
-        }
-        return res.json();
-      })
+    getProducts()
       .then((data) => setProducts(data))
       .catch((error) => setErrors(error.message))
       .finally(() => setLoading(false));
@@ -47,17 +43,31 @@ export const ItemListContainer = () => {
         calibrados para esports competitivos y creadores de contenido de élite.
       </p>
       <nav className="category-nav">
-        <Link to="/" className={!category ? "pill-activo" : "pill"}>Ver todos</Link>
-        <Link to={"/category/teclados"} className={category === "teclados" ? "pill-activo" : "pill"}>
+        <Link to="/" className={!category ? "pill-activo" : "pill"}>
+          Ver todos
+        </Link>
+        <Link
+          to={"/category/teclados"}
+          className={category === "teclados" ? "pill-activo" : "pill"}
+        >
           Teclados Mecánicos
         </Link>
-        <Link to={"/category/mouses"} className={category === "mouses" ? "pill-activo" : "pill"}>
+        <Link
+          to={"/category/mouses"}
+          className={category === "mouses" ? "pill-activo" : "pill"}
+        >
           Mouses Ópticos
         </Link>
-        <Link to={"/category/auriculares"} className={category === "auriculares" ? "pill-activo" : "pill"}>
+        <Link
+          to={"/category/auriculares"}
+          className={category === "auriculares" ? "pill-activo" : "pill"}
+        >
           Auriculares Gamer
         </Link>
-        <Link to={"/category/sillas"} className={category === "sillas" ? "pill-activo" : "pill"}>
+        <Link
+          to={"/category/sillas"}
+          className={category === "sillas" ? "pill-activo" : "pill"}
+        >
           Sillas Ergonómicas
         </Link>
       </nav>
@@ -99,17 +109,29 @@ export const ItemListContainer = () => {
           <p>Entrega pro-tier en 24/48hs a todo el país.</p>
         </div>
         <div className="feature-card">
-          <img src={garantiaIcon} alt="2 Años de Garantía" className="feature-icon" />
+          <img
+            src={garantiaIcon}
+            alt="2 Años de Garantía"
+            className="feature-icon"
+          />
           <h3>2 Años de Garantía</h3>
           <p>Reemplazo directo sin demoras burocráticas.</p>
         </div>
         <div className="feature-card">
-          <img src={devolucionIcon} alt="Devolución 30 Días" className="feature-icon" />
+          <img
+            src={devolucionIcon}
+            alt="Devolución 30 Días"
+            className="feature-icon"
+          />
           <h3>Devolución 30 Días</h3>
           <p>Prueba tu gear sin costo y sin riesgos.</p>
         </div>
         <div className="feature-card">
-          <img src={soporteIcon} alt="Soporte Pro 24/7" className="feature-icon" />
+          <img
+            src={soporteIcon}
+            alt="Soporte Pro 24/7"
+            className="feature-icon"
+          />
           <h3>Soporte Pro 24/7</h3>
           <p>Ingenieros disponibles en directo.</p>
         </div>

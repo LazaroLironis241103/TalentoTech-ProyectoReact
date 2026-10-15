@@ -2,6 +2,7 @@ import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
 import { ItemDetail } from "../ItemDetail/ItemDetail";
 import { ItemList } from "../ItemList/ItemList";
+import { getProductById, getByCategory } from "../../services/productsService";
 
 export const ItemDetailContainer = () => {
   const { id } = useParams();
@@ -17,19 +18,18 @@ export const ItemDetailContainer = () => {
     setError(null);
     setProductosRelacionados([]);
 
-    fetch("/data/products.json")
-      .then((res) => res.json())
-      .then((data) => {
-        const item = data.find((product) => String(product.id) === id);
+    getProductById(id)
+      .then((item) => {
         if (item) {
           setItemDetail(item);
-          const relacionados = data.filter(
-            (r) => r.category === item.category && r.id !== item.id,
-          );
-          setProductosRelacionados(relacionados);
-          return;
+          return getByCategory(item.category);
         }
         throw new Error("Elemento no encontrado");
+      })
+      .then((relacionados) => {
+        setProductosRelacionados(
+          relacionados.filter((producto) => producto.id !== id),
+        );
       })
       .catch((error) => setError(error.message))
       .finally(() => setLoading(false));
@@ -37,7 +37,8 @@ export const ItemDetailContainer = () => {
 
   if (loading) return <p className="detail-status">Cargando...</p>;
   if (error) return <p className="detail-status detail-error">{error}</p>;
-  if (!itemDetail) return <p className="detail-status">Producto no encontrado</p>;
+  if (!itemDetail)
+    return <p className="detail-status">Producto no encontrado</p>;
 
   return (
     <section className="detail-content">
@@ -46,11 +47,11 @@ export const ItemDetailContainer = () => {
         <ItemDetail item={itemDetail} />
       </div>
       <div className="related-products">
-          <h2>Productos relacionados</h2>
-          <div>
-            <ItemList products={productosRelacionados}/>
-          </div>
+        <h2>Productos relacionados</h2>
+        <div>
+          <ItemList products={productosRelacionados} />
         </div>
+      </div>
     </section>
   );
 };
