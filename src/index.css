@@ -1,3 +1,5 @@
+@import "./components/adminComponents/ProductSucces.css";
+
 /* Variables del tema Nexus Gear */
 :root {
   --primary: #8b5cf6;
