@@ -1,12 +1,16 @@
-export const validateProduct = (product) => {
+const ALLOWED_TYPES = ["image/jpeg", "image/png", "image/webp"];
+const MAX_SIZE = 2 * 1024 * 1024;
+
+export const validateProduct = (product, isEditing = false) => {
     const errors = {};
+    const price = Number(product.price);
 
     if (!product.name.trim()) {
         errors.name = "El nombre es obligatorio."
     }
 
-    if (!product.price || product.price <= 0) {
-        errors.price = "El precio debe ser mayor a 0."
+    if (!Number.isInteger(price) || price <= 0) {
+        errors.price = "El precio debe ser un número entero mayor a 0."
     }
 
     if (product.precioAnterior) {
@@ -30,8 +34,13 @@ export const validateProduct = (product) => {
     }
 
     if (!product.file) {
-        errors.file = "Debes seleccionar una imagen."
+        if (!isEditing) {
+            errors.file = "Debes seleccionar una imagen."
+        }
+    } else if (!ALLOWED_TYPES.includes(product.file.type)) {
+        errors.file = "El archivo debe ser una imagen (jpg, png, webp)."
+    } else if (product.file.size > MAX_SIZE) {
+        errors.file = "El archivo no puede superar los 2MB."
     }
-
     return errors;
 }

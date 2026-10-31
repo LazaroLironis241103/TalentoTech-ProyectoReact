@@ -35,7 +35,8 @@ function App() {
                 {/* Rutas Admin */}
                 <Route index element={<Navigate to={"dashboard"} />} />
                 <Route path="dashboard" element={<Dashboard />} />
-                <Route path="products/new" element={<ProductFormContainer />} />
+                <Route path="products/new" element={<ProductFormContainer key="new"/>} />
+                <Route path="products/edit/:id" element={<ProductFormContainer key="edit" />} />
                 <Route path="products/success/:id" element={<ProductSuccess />} />
             </Route>
         </Routes>
