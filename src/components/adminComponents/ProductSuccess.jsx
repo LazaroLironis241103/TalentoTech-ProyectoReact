@@ -7,16 +7,16 @@ export const ProductSuccess = () => {
         <section className="success-page">
             <div className="success-icon">✅</div>
 
-            <h2>Producto cargado con éxito</h2>
-            <p>ID de producto: {id}</p>
-            <p>Puede cargar otro haciendo click en el boton.</p>
+            <h2 className="success-title">Producto cargado con éxito</h2>
+            <p className="success-id">ID de producto: {id}</p>
+            <p className="success-copy">Puede cargar otro haciendo click en el boton.</p>
 
             <div className="success-actions">
-                <Link className="btn bg-primary primary" to="/admin/dashboard">
+                <Link className="success-action" to="/admin/dashboard">
                     Volver al panel
                 </Link>
 
-                <Link className="btn bg-success primary" to="/admin/products/new">
+                <Link className="success-action success-action--secondary" to="/admin/products/new">
                     Cargar otro producto
                 </Link>
             </div>
