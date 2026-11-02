@@ -1,11 +1,9 @@
 import { Link } from "react-router-dom";
-import { useAuth } from "../../../context/AuthContext";
 import "./Dashboard.css";
 import { useState, useEffect } from "react";
 import { getProducts, deleteProduct } from "../../../services/productsService.js";
 
 export const Dashboard = () => {
-    const { logout } = useAuth();
     const [loading, setLoading] = useState(true);
     const [error, setError] = useState(null);
     const [products, setProducts] = useState([]);
@@ -43,22 +41,9 @@ export const Dashboard = () => {
 
     return (
         <div className="dashboard">
-            <header className="dashboard-header">
-                <h2>Panel de administración</h2>
-
-                <div className="header-actions">
-                    <Link to="/">
-                        Volver a la tienda
-                    </Link>
-                    <button onClick={logout}>
-                        Cerrar sesión
-                    </button>
-                </div>
-            </header>
-
+            <h1>Panel de administración</h1>
             <section className="dashboard-actions">
                 <h3>Acciones rápidas</h3>
-
                 <div className="actions-grid">
                     <Link to="/admin/products/new" className="action-card">
                         Cargar producto
