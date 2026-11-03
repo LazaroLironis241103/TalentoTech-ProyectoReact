@@ -109,5 +109,5 @@ export const ProductFormUI = ({
                 {errors.general && <p className="product-form__error product-form__error--general">{errors.general}</p>}
             </form>
         </section>
-    )
+    );
 }
