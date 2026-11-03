@@ -7,6 +7,7 @@ import devolucionIcon from "../../assets/refresh-square-svgrepo-com.svg";
 import soporteIcon from "../../assets/shopping-support-svgrepo-com.svg";
 import "./ItemListContainer.css";
 import { getProducts } from "../../services/productsService";
+import { Spinner } from "../Spinner/Spinner";
 
 export const ItemListContainer = () => {
   const [products, setProducts] = useState([]);
@@ -29,7 +30,13 @@ export const ItemListContainer = () => {
       .finally(() => setLoading(false));
   }, []);
 
-  if (loading) return <p>Cargando...</p>;
+  if (loading) {
+    return (
+        <div className="detail-status">
+            <Spinner loading={loading} />
+        </div>
+    )
+  }
   if (errors) return <p>{errors}</p>;
 
   return (

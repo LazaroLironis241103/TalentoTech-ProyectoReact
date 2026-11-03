@@ -4,6 +4,7 @@ import { ProductFormUI } from "./ProductFormUI";
 import { validateProduct } from "../../../utils/validateProduct";
 import { uploadImage } from "../../../services/uploadImage.js";
 import { createProduct, getProductById, updateProduct } from "../../../services/productsService.js";
+import { Spinner } from "../../Spinner/Spinner.jsx";
 
 export const ProductFormContainer = () => {
     const { id } = useParams();
@@ -102,7 +103,14 @@ export const ProductFormContainer = () => {
         }
     };
 
-    if (loadingProduct) return <p className="detail-status">Cargando producto...</p>;
+    if (loadingProduct) {
+        return (
+            <div className="detail-status">
+                <Spinner loading={loadingProduct} />
+                <p>Cargando producto...</p>
+            </div>
+        );
+    }
     if (loadError) return <p className="detail-status detail-error">{loadError}</p>;
 
     return (

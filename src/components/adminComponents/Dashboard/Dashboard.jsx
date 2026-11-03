@@ -3,6 +3,7 @@ import "./Dashboard.css";
 import { useState, useEffect } from "react";
 import { getProducts, deleteProduct } from "../../../services/productsService.js";
 import { formatPrice } from "../../../utils/formatPrice.js";
+import { Spinner } from "../../Spinner/Spinner.jsx";
 
 export const Dashboard = () => {
     const [loading, setLoading] = useState(true);
@@ -40,13 +41,7 @@ export const Dashboard = () => {
         loadProducts();
     }, []);
 
-    if (loading) {
-        return (
-            <div className="dashboard dashboard-state">
-                <p className="dashboard-state__message" role="status">Cargando productos...</p>
-            </div>
-        );
-    }
+
     if (error) {
         return (
             <div className="dashboard dashboard-state">
@@ -146,7 +141,12 @@ export const Dashboard = () => {
 
                 {deleteError && <p className="dashboard-delete-error" role="alert">{deleteError}</p>}
 
-                {products.length === 0 ? (
+                {loading ? (
+                    <div className="dashboard-state">
+                        <Spinner loading={loading} />
+                        <p className="dashboard-state__message">Cargando productos...</p>
+                    </div>
+                ) : products.length === 0 ? (
                     <p className="dashboard-empty-state">No hay productos cargados</p>
                 ) : filteredProducts.length === 0 ? (
                     <p className="dashboard-empty-state">No se encontraron productos</p>

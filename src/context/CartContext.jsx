@@ -1,6 +1,7 @@
 /* eslint-disable react-refresh/only-export-components */
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { toast } from "react-toastify";
 
 const CartContext = createContext();
 
@@ -35,12 +36,12 @@ export const CartProvider = ({ children }) => {
     } else {
       setCart((prevCart) => [...prevCart, { ...item, quantity }]);
     }
-    alert("¡Producto agregado al carrito!");
+    toast.success("¡Producto agregado al carrito!");
   };
 
   const removeItem = (id) => {
     setCart((prevCart) => prevCart.filter((element) => element.id !== id));
-    alert("Producto eliminado del carrito.");
+    toast.success("Producto eliminado del carrito.");
   };
 
   const clearCart = () => {
@@ -81,7 +82,7 @@ export const CartProvider = ({ children }) => {
   };
 
   const checkout = () => {
-    alert("¡Gracias por tu compra!");
+    toast.success("¡Gracias por tu compra!");
     clearCart();
     navigate("/");
   };
