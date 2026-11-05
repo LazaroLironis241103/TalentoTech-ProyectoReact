@@ -4,6 +4,8 @@ import { useState, useEffect } from "react";
 import { getProducts, deleteProduct } from "../../../services/productsService.js";
 import { formatPrice } from "../../../utils/formatPrice.js";
 import { Spinner } from "../../Spinner/Spinner.jsx";
+import { getOrders } from "../../../services/ordersService.js";
+import { Table } from "react-bootstrap";
 
 export const Dashboard = () => {
     const [loading, setLoading] = useState(true);
@@ -13,6 +15,10 @@ export const Dashboard = () => {
 
     const [searchTerm, setSearchTerm] = useState("");
     const [selectedCategory, setSelectedCategory] = useState("Todas");
+
+    const [orders, setOrders] = useState([]);
+    const [loadingOrders, setLoadingOrders] = useState(true);
+    const [ordersError, setOrdersError] = useState(null);
 
     const handleDelete = async (id) => {
         if (!window.confirm("¿Estás seguro de que deseas eliminar este producto?")) return;
@@ -41,6 +47,21 @@ export const Dashboard = () => {
         loadProducts();
     }, []);
 
+    useEffect(() => {
+        const loadOrders = async () => {
+            try {
+                const ordersData = await getOrders();
+                setOrders(ordersData);
+            } catch (err) {
+                console.error("Error al cargar la lista de ordenes:", err);
+                setOrdersError("Error al cargar la lista de ordenes.");
+            } finally {
+                setLoadingOrders(false);
+            }
+        };
+        loadOrders();
+    }, []);
+
 
     if (error) {
         return (
@@ -52,7 +73,6 @@ export const Dashboard = () => {
 
     const totalProducts = products.length;
     const offerProducts = products.filter((product) => product.precioAnterior).length;
-    const totalCategories = new Set(products.map((product) => product.category)).size;
     const totalPrice = products.reduce((acumulador, product) => {
         return acumulador + product.price;
     }, 0);
@@ -61,6 +81,8 @@ export const Dashboard = () => {
 
     const categories = new Set(products.map((product) => product.category));
     const uniqueCategories = Array.from(categories);
+    const totalCategories = uniqueCategories.length;
+
     const filteredProducts = products.filter((product) => {
         return (
             product.name.toLowerCase().includes(searchTerm.toLowerCase()) &&
@@ -141,16 +163,22 @@ export const Dashboard = () => {
 
                 {deleteError && <p className="dashboard-delete-error" role="alert">{deleteError}</p>}
 
-                {loading ? (
+                {loading && (
                     <div className="dashboard-state">
                         <Spinner loading={loading} />
                         <p className="dashboard-state__message">Cargando productos...</p>
                     </div>
-                ) : products.length === 0 ? (
+                )}
+
+                {!loading && products.length === 0 && (
                     <p className="dashboard-empty-state">No hay productos cargados</p>
-                ) : filteredProducts.length === 0 ? (
+                )}
+
+                {!loading && products.length > 0 && filteredProducts.length === 0 && (
                     <p className="dashboard-empty-state">No se encontraron productos</p>
-                ) : (
+                )}
+
+                {!loading && filteredProducts.length > 0 && (
                     <div className="dashboard-product-list">
                         {filteredProducts.map((product) => (
                             <article key={product.id} className="dashboard-product-card">
@@ -181,6 +209,53 @@ export const Dashboard = () => {
                             </article>
                         ))}
                     </div>
+                )}
+            </section>
+
+            <section className="dashboard-orders">
+                <div className="dashboard-orders__heading">
+                    <h2>Órdenes de compra</h2>
+                    {!loadingOrders && <span>{orders.length} órdenes</span>}
+                </div>
+
+                {loadingOrders && <Spinner loading={loadingOrders} />}
+
+                {ordersError && <p role="alert">{ordersError}</p>}
+
+                {!loadingOrders && !ordersError && orders.length === 0 && (
+                    <p>No hay órdenes registradas.</p>
+                )}
+
+                {!loadingOrders && !ordersError && orders.length > 0 && (
+                    <Table striped bordered hover responsive>
+                        <thead>
+                            <tr>
+                                <th>Orden</th>
+                                <th>Fecha</th>
+                                <th>Productos</th>
+                                <th>Total</th>
+                                <th>Estado</th>
+                            </tr>
+                        </thead>
+
+                        <tbody>
+                            {orders.map((order) => (
+                                <tr key={order.id}>
+                                    <td>{order.id}</td>
+                                    <td>{order.date.toDate().toLocaleDateString("es-AR")}</td>
+                                    <td>
+                                        {order.items.map((item) => (
+                                            <p key={item.id}>
+                                                {item.name} x {item.quantity}
+                                            </p>
+                                        ))}
+                                    </td>
+                                    <td>${formatPrice(order.total)}</td>
+                                    <td>{order.status}</td>
+                                </tr>
+                            ))}
+                        </tbody>
+                    </Table>
                 )}
             </section>
         </div>

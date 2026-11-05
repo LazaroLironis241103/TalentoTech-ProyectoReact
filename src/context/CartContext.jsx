@@ -2,102 +2,117 @@
 import { createContext, useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { toast } from "react-toastify";
+import { createOrder } from "../services/ordersService";
+
 
 const CartContext = createContext();
 
 export const useCart = () => {
-  const context = useContext(CartContext);
+    const context = useContext(CartContext);
 
-  if (!context) {
-    throw new Error("useCart debe usarse dentro de un CartProvider");
-  }
-  return context;
+    if (!context) {
+        throw new Error("useCart debe usarse dentro de un CartProvider");
+    }
+    return context;
 };
 
 export const CartProvider = ({ children }) => {
-  const navigate = useNavigate();
-  const [cart, setCart] = useState([]);
+    const navigate = useNavigate();
+    const [cart, setCart] = useState([]);
 
-  const isInCart = (item) => {
-    const inCart = cart.some((element) => element.id === item.id);
-    return inCart;
-  };
+    const isInCart = (item) => {
+        const inCart = cart.some((element) => element.id === item.id);
+        return inCart;
+    };
 
-  const addItem = (item, quantity = 1) => {
-    if (isInCart(item)) {
-      setCart((prevCart) =>
-        prevCart.map((element) => {
-          if (element.id === item.id) {
-            return { ...element, quantity: element.quantity + quantity };
-          }
-          return element;
-        }),
-      );
-    } else {
-      setCart((prevCart) => [...prevCart, { ...item, quantity }]);
-    }
-    toast.success("¡Producto agregado al carrito!");
-  };
-
-  const removeItem = (id) => {
-    setCart((prevCart) => prevCart.filter((element) => element.id !== id));
-    toast.success("Producto eliminado del carrito.");
-  };
-
-  const clearCart = () => {
-    setCart([]);
-  };
-
-  const getTotalItems = () => {
-    return cart.reduce((acc, element) => acc + element.quantity, 0);
-  };
-
-  const getCartTotal = () => {
-    return cart.reduce(
-      (acc, element) => acc + element.price * element.quantity,
-      0,
-    );
-  };
-
-  const increaseQuantity = (id) => {
-    setCart((prevCart) =>
-      prevCart.map((element) => {
-        if (element.id === id && element.quantity < 99) {
-          return { ...element, quantity: element.quantity + 1 };
+    const addItem = (item, quantity = 1) => {
+        if (isInCart(item)) {
+            setCart((prevCart) =>
+                prevCart.map((element) => {
+                    if (element.id === item.id) {
+                        return { ...element, quantity: element.quantity + quantity };
+                    }
+                    return element;
+                }),
+            );
+        } else {
+            setCart((prevCart) => [...prevCart, { ...item, quantity }]);
         }
-        return element;
-      }),
-    );
-  };
+        toast.success("¡Producto agregado al carrito!");
+    };
 
-  const decreaseQuantity = (id) => {
-    setCart((prevCart) =>
-      prevCart.map((element) => {
-        if (element.id === id && element.quantity > 1) {
-          return { ...element, quantity: element.quantity - 1 };
+    const removeItem = (id) => {
+        setCart((prevCart) => prevCart.filter((element) => element.id !== id));
+        toast.success("Producto eliminado del carrito.");
+    };
+
+    const clearCart = () => {
+        setCart([]);
+    };
+
+    const getTotalItems = () => {
+        return cart.reduce((acc, element) => acc + element.quantity, 0);
+    };
+
+    const getCartTotal = () => {
+        return cart.reduce(
+            (acc, element) => acc + element.price * element.quantity,
+            0,
+        );
+    };
+
+    const increaseQuantity = (id) => {
+        setCart((prevCart) =>
+            prevCart.map((element) => {
+                if (element.id === id && element.quantity < 99) {
+                    return { ...element, quantity: element.quantity + 1 };
+                }
+                return element;
+            }),
+        );
+    };
+
+    const decreaseQuantity = (id) => {
+        setCart((prevCart) =>
+            prevCart.map((element) => {
+                if (element.id === id && element.quantity > 1) {
+                    return { ...element, quantity: element.quantity - 1 };
+                }
+                return element;
+            }),
+        );
+    };
+
+    const checkout = async () => {
+        try {
+            const orderData = {
+                items: cart,
+                total: getCartTotal(),
+                date: new Date(),
+                status: "Pendiente",
+            };
+
+            await createOrder(orderData);
+            toast.success("¡Gracias por tu compra!");
+            clearCart();
+            navigate("/");
+        } catch (error) {
+            console.error("Error al registrar la compra:", error);
+            toast.error("No se pudo registrar tu compra. Intentá nuevamente.");
         }
-        return element;
-      }),
-    );
-  };
+    };
 
-  const checkout = () => {
-    toast.success("¡Gracias por tu compra!");
-    clearCart();
-    navigate("/");
-  };
+    const values = {
+        cart,
+        addItem,
+        clearCart,
+        removeItem,
+        getCartTotal,
+        getTotalItems,
+        checkout,
+        increaseQuantity,
+        decreaseQuantity,
+    };
 
-  const values = {
-    cart,
-    addItem,
-    clearCart,
-    removeItem,
-    getCartTotal,
-    getTotalItems,
-    checkout,
-    increaseQuantity,
-    decreaseQuantity,
-  };
-
-  return <CartContext.Provider value={values}>{children}</CartContext.Provider>;
+    return <CartContext.Provider value={values}>{children}</CartContext.Provider>;
 };
